@@ -106,10 +106,16 @@ gd32f4xx_spl_inc = include_directories(
     'CMSIS',
 )
 
+# Build SPL as static library
+gd32f4xx_spl_lib = static_library('gd32f4xx_spl',
+    all_src,
+    include_directories: gd32f4xx_spl_inc,
+    c_args: ['-mcpu=cortex-m4', '-mthumb', '-D' + chip_family],
+)
+
 gd32f4xx_spl_dep = declare_dependency(
     include_directories: gd32f4xx_spl_inc,
-    sources: all_src,
-    compile_args: ['-mcpu=cortex-m4', '-mthumb', '-D' + chip_family],
     link_args: ['-T', chip_ld_map[option_chip]],
+    dependencies: [gd32f4xx_spl_lib],
 )
 meson.override_dependency('gd32f4xx_spl', gd32f4xx_spl_dep)
