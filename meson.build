@@ -116,6 +116,6 @@ gd32f4xx_spl_lib = static_library('gd32f4xx_spl',
 gd32f4xx_spl_dep = declare_dependency(
     include_directories: gd32f4xx_spl_inc,
     link_args: ['-T', chip_ld_map[option_chip]],
-    dependencies: [gd32f4xx_spl_lib],
+    link_with: [gd32f4xx_spl_lib],
 )
 meson.override_dependency('gd32f4xx_spl', gd32f4xx_spl_dep)
